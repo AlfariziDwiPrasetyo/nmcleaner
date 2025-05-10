@@ -1,5 +1,35 @@
+import chalk from "chalk";
+import fg from "fast-glob";
 import { stat, readdir } from "fs/promises";
 import path from "path";
+
+export async function scanForNodeModules(
+  basePath: string = "."
+): Promise<string[]> {
+  try {
+    const matches = await fg("**/node_modules", {
+      cwd: basePath,
+      onlyDirectories: true,
+      ignore: ["**/node_modules/**/node_modules"],
+    });
+
+    if (matches.length === 0) {
+      console.log(chalk.yellow("⚠️  No node_modules folders found."));
+      console.log();
+      return [];
+    }
+
+    return matches;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err.message);
+    } else {
+      console.error("An unknown error occurred.");
+    }
+
+    return [];
+  }
+}
 
 export async function getFolderSize(folderPath: string): Promise<number> {
   let totalSize = 0;

@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import fg from "fast-glob";
 import { rm } from "fs/promises";
-import { byteToMegabyte, getFolderSize } from "../utils";
+import { byteToMegabyte, getFolderSize, scanForNodeModules } from "../utils";
 import path from "path";
 
 export async function deleteAllNodeModules(
@@ -16,23 +16,16 @@ export async function deleteAllNodeModules(
   console.log(chalk.blue("📁 Scanning in:"), chalk.underline(basePath));
   console.log();
 
-  const matches = await fg("**/node_modules", {
-    cwd: basePath,
-    onlyDirectories: true,
-    ignore: ["**/node_modules/**/node_modules"],
-    absolute: true,
-    suppressErrors: force,
-  });
+  const matches = await scanForNodeModules(basePath);
 
-  if (matches.length === 0) {
-    console.log(chalk.yellow("⚠️  No node_modules folders found."));
-    console.log();
+  if (matches.length == 0) {
     return;
   }
 
   console.log(
     chalk.green(`✅ Found ${matches.length} node_modules folder(s):`)
   );
+
   console.log();
 
   matches.forEach((dir, i) => {
@@ -52,7 +45,7 @@ export async function deleteAllNodeModules(
     console.log(`${label} ${chalk.cyan("🗑️  Deleting:")} ${chalk.gray(dir)}`);
 
     if (!dryRun) {
-      //   await rm(dir, { recursive: true, force: true });
+      await rm(dir, { recursive: true, force: true });
     }
   }
 
