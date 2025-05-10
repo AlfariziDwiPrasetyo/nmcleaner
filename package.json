@@ -13,7 +13,7 @@
     "typescript": "^5.0.0"
   },
   "bin": {
-    "nmclean": "./bin/cli.ts"
+    "nmcleaner": "./bin/cli.ts"
   },
   "dependencies": {
     "@types/node": "^22.15.17",
