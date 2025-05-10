@@ -12,7 +12,7 @@ program
   .argument("[target]", "Target directory", ".")
   .option("--dry-run", "Do not delete, only print")
   .option("-f, --force", "Ignore permission errors")
-  .parse();
+  .parse(process.argv);
 
 const options = program.opts();
 const target = program.args[0] || ".";

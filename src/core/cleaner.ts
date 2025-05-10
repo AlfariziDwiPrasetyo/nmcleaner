@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import fg from "fast-glob";
 import { rm } from "fs/promises";
 import { byteToMegabyte, getFolderSize, scanForNodeModules } from "../utils";
 import path from "path";
@@ -16,7 +15,7 @@ export async function deleteAllNodeModules(
   console.log(chalk.blue("📁 Scanning in:"), chalk.underline(basePath));
   console.log();
 
-  const matches = await scanForNodeModules(basePath);
+  const matches = await scanForNodeModules(basePath, force);
 
   if (matches.length == 0) {
     return;

@@ -4,13 +4,15 @@ import { stat, readdir } from "fs/promises";
 import path from "path";
 
 export async function scanForNodeModules(
-  basePath: string = "."
+  basePath: string = ".",
+  force: boolean = false
 ): Promise<string[]> {
   try {
     const matches = await fg("**/node_modules", {
       cwd: basePath,
       onlyDirectories: true,
       ignore: ["**/node_modules/**/node_modules"],
+      suppressErrors: force,
     });
 
     if (matches.length === 0) {

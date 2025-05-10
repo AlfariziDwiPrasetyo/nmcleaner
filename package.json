@@ -7,13 +7,13 @@
   },
   "scripts": {
     "start": "bun run index.ts",
-    "test": "bun run bin/cli.ts ./test/"
+    "test": "bun run dist/bin/cli.js ./test/ --dry-run"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "bin": {
-    "nmclean": "./dist/bin/cli.js"
+    "nmclean": "./bin/cli.ts"
   },
   "dependencies": {
     "@types/node": "^22.15.17",
