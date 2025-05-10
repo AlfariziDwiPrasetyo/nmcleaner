@@ -6,10 +6,14 @@
     "@types/bun": "latest"
   },
   "scripts": {
-    "start": "bun run index.ts"
+    "start": "bun run index.ts",
+    "test" : "bun run bin/cli.ts ./ --dry-run --force"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "bin": {
+  "nmclean": "./dist/bin/cli.js"
   },
   "dependencies": {
     "@types/node": "^22.15.17",
