@@ -44,7 +44,22 @@ export async function deleteAllNodeModules(
     console.log(`${label} ${chalk.cyan("🗑️  Deleting:")} ${chalk.gray(dir)}`);
 
     if (!dryRun) {
-      await rm(dir, { recursive: true, force: true });
+      try {
+        await rm(dir, { recursive: true, force: true });
+      } catch (err: any) {
+        if (
+          err.code === "EACCES" ||
+          err.code === "EPERM" ||
+          err.code === "EBUSY"
+        ) {
+          console.warn(
+            chalk.red(`❌ Skipped (permission/resource issue): ${dir}`)
+          );
+          continue;
+        } else {
+          throw err;
+        }
+      }
     }
   }
 

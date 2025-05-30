@@ -18,4 +18,4 @@ const options = program.opts();
 const target = program.args[0] || ".";
 const resolvedPath = path.resolve(target);
 
-deleteAllNodeModules(resolvedPath, options.dryRun, options.force);
+await deleteAllNodeModules(resolvedPath, options.dryRun, options.force);

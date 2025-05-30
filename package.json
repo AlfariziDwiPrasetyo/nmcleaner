@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "bun run index.ts",
-    "test": "bun run dist/bin/cli.js ./test/ --dry-run"
+    "test": "bun run bin/cli.js ./test/"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

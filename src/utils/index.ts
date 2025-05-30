@@ -21,7 +21,7 @@ export async function scanForNodeModules(
       return [];
     }
 
-    return matches;
+    return matches.map((p) => path.resolve(basePath, p));
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error(err.message);
